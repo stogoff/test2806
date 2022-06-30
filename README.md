@@ -26,6 +26,7 @@
 
 
 Test:
+```
 docker-compose up --build
 curl  http://127.0.0.1:8007/v1/register/ -d '{"email":"j@vv.cc","first_name":"John","last_name":"Doe","active":"False","password":"x" }' -H "Content-Type: application/json" -X POST
 curl  http://127.0.0.1:8007/v1/register/ -d '{"email":"qqj@vv.cc","first_name":"Jane","last_name":"Smith","active":"True","password":"x" }' -H "Content-Type: application/json" -X POST
@@ -42,10 +43,11 @@ curl  http://127.0.0.1:8008/v1/subscription/add/ -d '{"user_id":2}' -H "Content-
 curl  http://127.0.0.1:8008/v1/subscription/1
 curl  http://127.0.0.1:8008/v1/subscription/2
 curl  http://127.0.0.1:8009/v1/emails/send/ -d '{"user_id":2, "subject":"SSSSSSS", "body":"Hi there!"}' -H "Content-Type: application/json" -X POST
-
+```
 
 
 Prod:
+```
 docker-compose -f docker-compose-prod.yml up --build
 curl  http://127.0.0.1/v1/register/ -d '{"email":"j@vv.cc","first_name":"John","last_name":"Doe","active":"False","password":"x" }' -H "Content-Type: application/json" -X POST
 curl  http://127.0.0.1/v1/register/ -d '{"email":"qqj@vv.cc","first_name":"Jane","last_name":"Smith","active":"True","password":"x" }' -H "Content-Type: application/json" -X POST
@@ -62,3 +64,4 @@ curl  http://127.0.0.1/v1/subscription/add/ -d '{"user_id":2}' -H "Content-Type:
 curl  http://127.0.0.1/v1/subscription/1
 curl  http://127.0.0.1/v1/subscription/2
 curl  http://127.0.0.1/v1/emails/send/ -d '{"user_id":2, "subject":"SSSSSSS", "body":"Hi there!"}' -H "Content-Type: application/json" -X POST
+```
