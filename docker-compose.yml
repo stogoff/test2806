@@ -1,0 +1,51 @@
+# docker-compose.yml
+
+version: '3.3'
+
+services:
+  profile:
+    build: ./profile_service
+    command: bash -c 'while !</dev/tcp/db1/5432; do sleep 1; done; uvicorn main:app --host 0.0.0.0'
+    volumes:
+      - .:/profile_service
+    ports:
+      - 8008:8000
+    environment:
+      - DATABASE_URL=postgresql://test:test@db1:5432/test
+    depends_on:
+      - db1
+  emails:
+    build: ./emails_service
+    command: bash -c 'while !</dev/tcp/db1/5432; do sleep 1; done; uvicorn main:app --host 0.0.0.0'
+    volumes:
+      - .:/emails_service
+    ports:
+      - 8009:8000
+    environment:
+      - DATABASE_URL=postgresql://test:test@db1:5432/test
+    depends_on:
+      - db1
+  users:
+    build: ./users_service
+    command: bash -c 'while !</dev/tcp/db1/5432; do sleep 1; done; uvicorn main:app --host 0.0.0.0'
+    volumes:
+      - .:/users_service
+    ports:
+      - 8007:8000
+    environment:
+      - DATABASE_URL=postgresql://test:test@db1:5432/test
+    depends_on:
+      - db1
+
+  db1:
+    image: postgres:13-alpine
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+volumes:
+  postgres_data:
